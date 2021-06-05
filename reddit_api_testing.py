@@ -1,16 +1,20 @@
 #4/18/21: imported praw, Adding authentication; got title, source, content, submission points to.
 #4/29/21: imported os, dotenv for env variables. Example in testing.py
-#TO DO: Find out how to download image to post and then delete it. Any way not to download?
-# config files, env variables. Start to get this on github.
-# to get attribute of a object; search
-# Determine Available Attributes of an Object on
-# on praw docs quickstart menu
+#5/2/21: imported urllib.request//not working
+#6/4/21: used requests to download the pictures to the pic dir successfully
+#TO DO:
+# Combine the reddit portion and twitter portion to post on twitter.
+# automate on a remote server.
+# Possible problems may be deleting the files after downloading and posting
+# to twitter.
 
 import os
 from dotenv import load_dotenv #for use of env variables
 load_dotenv() #take the environment variables from .env
 import praw
 import pprint #used this to learn more about the attributes in objects
+import urllib #used to download picture
+import requests
 
 reddit = praw.Reddit(
     client_id=os.getenv('REDDIT_CLIENT_ID'),
@@ -20,7 +24,7 @@ reddit = praw.Reddit(
     username=os.getenv('REDDIT_USERNAME'),
 )
 #Seeing if i am auhenticated correctly; works correctly
-print(reddit.user.me())
+print("User: " + str(reddit.user.me()))
 print("Processesing: \n")
 
 
@@ -29,7 +33,7 @@ subreddit = reddit.subreddit("Awwducational")
 #get top 5 hottest posts in nba subreddit; 2 posts are sticked
 #counter
 counter = 1
-for submission in subreddit.hot(limit=7):
+for submission in subreddit.hot(limit=3):
     if not(submission.stickied):
         print("#" + str(counter) + " Title: \t" + submission.title + "\n")
         #gets the url the post is pointing to
@@ -42,6 +46,14 @@ for submission in subreddit.hot(limit=7):
         #not sure if i even need this
         if (submission.url.endswith(('.jpg', '.png', '.gif', '.jpeg'))):
             print("Picture url: " + submission.url)
+            #img url
+            img_url = submission.url
+            #file name
+            filename = img_url.split("/")[-1]
+            #download the file to pic dir
+            r = requests.get(img_url)
+            with open("pic/"+filename, "wb") as f:
+                f.write(r.content)
         counter+=1
 
 
