@@ -2,7 +2,7 @@
 #Update: 4/7/21 -- downloaded praw for reddit api.
 #Update: 4/18/21 -- moved to new folder, twitter bot.
 #update: 4/29/21 -- imported os, dontenv to use env variables
-
+#update: 6/10/21: created functions to be reference in the Awwducational bot.
 import os
 from dotenv import load_dotenv #need this to access env variables
 import tweepy
@@ -33,15 +33,16 @@ array = ["Hello World!!", "This is my second tweet", "Third ", "Fourth", "Fifth"
 # while True:
 #     time.sleep(3600) ## in seconds i think
 
-#testing out how to print to twitter
+#print to twitter
 flag = True
 while flag:
     #will print the values in the array every min(60sec) to twitter
     for string in array:
         #prints out the element string
-        twitter_API.update_status(string)
+        #twitter_API.update_status(string)
         print(string)
-        time.sleep(60)
+        #time.sleep(60)
+        time.sleep(10)
     flag = False
 
 print("Completed!  " + user.name )
