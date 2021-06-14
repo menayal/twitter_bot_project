@@ -3,6 +3,7 @@
 #Update: 4/18/21 -- moved to new folder, twitter bot.
 #update: 4/29/21 -- imported os, dontenv to use env variables
 #update: 6/10/21: created functions to be reference in the Awwducational bot.
+#update: 6/11/21: deleted functions;
 import os
 from dotenv import load_dotenv #need this to access env variables
 import tweepy
@@ -26,7 +27,7 @@ user = twitter_API.me()
 
 
 #creating a array to hold some values; will post them to twitter
-array = ["Hello World!!", "This is my second tweet", "Third ", "Fourth", "Fifth" ]
+array = ["Hello World!!" ]
 #cannot upload duplicate posts
 
 #  whatever the time to sleep is
@@ -40,6 +41,15 @@ while flag:
     for string in array:
         #prints out the element string
         #twitter_API.update_status(string)
+
+
+
+        #test out replying to tweet first then use media; pain text works!
+        original_tweet = twitter_API.update_status(status="plain text 0.0")
+        reply_tweet = twitter_API.update_status(status="plain text reply 1", in_reply_to_status_id=original_tweet.id,auto_populate_reply_metadata=True)
+
+
+
         print(string)
         #time.sleep(60)
         time.sleep(10)

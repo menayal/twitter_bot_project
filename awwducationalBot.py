@@ -1,5 +1,5 @@
-#6/10/21:
-#combine both the reddit and twitter functionality into one program
+#6/10/21: combine both the reddit and twitter functionality into one program
+#6/11/21 : adjusted char count for titles
 #To do:
 #   get all access keys into here
 #   paste working twitter and reddit scripts
@@ -54,6 +54,13 @@ for submission in subreddit.hot(limit=5):
         title = str(submission.title)
         print("#" + str(counter) + " Title: \t" + title + "\n")
         print("Has " + str(len(title)) + " characters\n")
+
+        #adjusting the title to be able to post titles longer than 280 chars
+        adjustedTitle = title[0:273]
+        if(len(title) > 273):
+            adjustedTitle = title[0:273] + "(cont.)"
+            print(adjustedTitle)
+
         #gets the url the post is pointing to
         print("Submissions points to \t" + submission.url )
         #gets the url of post

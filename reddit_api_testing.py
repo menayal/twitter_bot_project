@@ -3,7 +3,7 @@
 #5/2/21: imported urllib.request//not working
 #6/4/21: used requests to download the pictures to the pic dir successfully
 #6/10/21: created functions to be reference in the Awwducational bot.
-
+#6/11/21: deleted fucntions; updated script adjust title <=280chars
 #TO DO:
 # Combine the reddit portion and twitter portion to post on twitter.
 # automate on a remote server.
@@ -14,8 +14,6 @@
 import os
 from dotenv import load_dotenv #for use of env variables
 import praw
-#import pprint #used this to learn more about the attributes in objects
-#import urllib #used to download picture
 import requests
 
 load_dotenv() #take the environment variables from .env
@@ -35,12 +33,22 @@ print("Processesing: \n")
 
 #get a subreddit post
 subreddit = reddit.subreddit("Awwducational")
-#get top 5 hottest posts in nba subreddit; 2 posts are sticked
+#get top 5 hottest posts in nba subreddit; 2(looks like 1 now) posts are sticked
 #counter
 counter = 1
 for submission in subreddit.hot(limit=5):
     if not(submission.stickied):
-        print("#" + str(counter) + " Title: \t" + submission.title + "\n")
+        #store the submission.title in a variable
+        title = str(submission.title)
+        print("#" + str(counter) + " Title: \t" + title + "\n")
+        print("Has " + str(len(title)) + " characters\n")
+
+        #adjusting the title to be able to post titles longer than 280 chars
+        adjustedTitle = title[0:273]
+        if(len(title) > 273):
+            adjustedTitle = title[0:273] + "(cont.)"
+            print(adjustedTitle)
+
         #gets the url the post is pointing to
         print("Submissions points to \t" + submission.url )
         #gets the url of post
@@ -62,8 +70,4 @@ for submission in subreddit.hot(limit=5):
         counter+=1
 
 
-
-
-#check attrubutes
-#pprint.pprint(vars(submission))
 print("\nComplete")
