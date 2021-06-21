@@ -1,10 +1,9 @@
 #6/10/21: combine both the reddit and twitter functionality into one program
 #6/11/21 : adjusted char count for titles
+#6/20/21: got the script to work successfully with media.
 #To do:
-#   get all access keys into here
-#   paste working twitter and reddit scripts
-#   adjust twitter script to post the reddit info
-#   may have to adjust how long the title are. need to be less than 280
+# host with heroku or online
+# post a tweet every x amount; maybe 24hrs
 
 #twitter side libraries
 import os
@@ -48,7 +47,7 @@ subreddit = reddit.subreddit("Awwducational")
 #get top 5 hottest posts in nba subreddit; 2(looks like 1 now) posts are sticked
 #counter
 counter = 1
-for submission in subreddit.hot(limit=5):
+for submission in subreddit.hot(limit=2):
     if not(submission.stickied):
         #store the submission.title in a variable
         title = str(submission.title)
@@ -65,10 +64,8 @@ for submission in subreddit.hot(limit=5):
         print("Submissions points to \t" + submission.url )
         #gets the url of post
         print("Source URL: \t" + submission.shortlink )
-        #gets the contents of Submission
-        print("Content: \n" + submission.selftext)
+
         #gets image
-        #not sure if i even need this
         if (submission.url.endswith(('.jpg', '.png', '.gif', '.jpeg'))):
             print("Picture url: " + submission.url)
             #img url
@@ -79,36 +76,25 @@ for submission in subreddit.hot(limit=5):
             r = requests.get(img_url)
             with open("pic/"+filename, "wb") as f:
                 f.write(r.content)
+
+            #print to twitter
+            flag = True
+            while flag:
+                print("tweeting")
+                # #upload media
+                media = twitter_API.media_upload("pic/"+filename)
+                #tweet with media and reply with source
+                original_tweet = twitter_API.update_status(status= adjustedTitle, media_ids=[media.media_id])
+                reply_tweet = twitter_API.update_status(status="Source: " + submission.shortlink, in_reply_to_status_id=original_tweet.id,auto_populate_reply_metadata=True)
+
+                #will print the values in the array every min(60sec) to twitter
+                #time.sleep(60)
+
+                #should adjust to 24 hrs of sleep
+                time.sleep(10)
+                flag = False
+
+            print("Completed!  " + user.name)
+
+        #move to next post
         counter+=1
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#creating a array to hold some values; will post them to twitter
-array = ["Hello World!!", "This is my second tweet", "Third ", "Fourth", "Fifth"]
-#cannot upload duplicate posts
-
-#print to twitter
-flag = True
-while flag:
-    #will print the values in the array every min(60sec) to twitter
-    for string in array:
-        #prints out the element string
-        #twitter_API.update_status(string)
-        print(string)
-        #time.sleep(60)
-        time.sleep(10)
-    flag = False
-
-print("Completed!  " + user.name)

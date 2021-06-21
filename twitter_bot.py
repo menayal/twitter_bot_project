@@ -4,6 +4,7 @@
 #update: 4/29/21 -- imported os, dontenv to use env variables
 #update: 6/10/21: created functions to be reference in the Awwducational bot.
 #update: 6/11/21: deleted functions;
+#update: 6/20/21: got tweeet to post with media
 import os
 from dotenv import load_dotenv #need this to access env variables
 import tweepy
@@ -45,8 +46,14 @@ while flag:
 
 
         #test out replying to tweet first then use media; pain text works!
-        original_tweet = twitter_API.update_status(status="plain text 0.0")
-        reply_tweet = twitter_API.update_status(status="plain text reply 1", in_reply_to_status_id=original_tweet.id,auto_populate_reply_metadata=True)
+        # original_tweet = twitter_API.update_status(status="plain text 0.0")
+        # reply_tweet = twitter_API.update_status(status="plain text reply 1", in_reply_to_status_id=original_tweet.id,auto_populate_reply_metadata=True)
+
+        #upload media
+        media = twitter_API.media_upload("pic/mhefwskph8371.gif")
+        #upload media tweet works!
+        original_tweet = twitter_API.update_status(status="media with text 0.0", media_ids=[media.media_id])
+        reply_tweet = twitter_API.update_status(status="media text reply 1", in_reply_to_status_id=original_tweet.id,auto_populate_reply_metadata=True)
 
 
 

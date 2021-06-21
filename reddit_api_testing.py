@@ -65,6 +65,7 @@ for submission in subreddit.hot(limit=5):
             filename = img_url.split("/")[-1]
             #download the file to pic dir
             r = requests.get(img_url)
+            # "pic/"+filename will be the media tweeted out
             with open("pic/"+filename, "wb") as f:
                 f.write(r.content)
         counter+=1
