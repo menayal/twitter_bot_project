@@ -24,7 +24,7 @@ I created this bot to learn more about how API's work together.
 * Praw
 * OS
 * Requests
-* ![List of dependenices and version numbers](requirements.txt)
+* [List of dependenices and version numbers](requirements.txt)
 
 
 
