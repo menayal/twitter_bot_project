@@ -19,7 +19,7 @@ I created this bot to learn more about how API's work together.
 - Responds to the tweet with a source of where it came from.
 
 
-## Libraries and Modules
+## ![Dependencies](requirements.txt)
 * Tweepy
 * Praw
 * OS
