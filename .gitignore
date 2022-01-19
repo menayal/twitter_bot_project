@@ -4,3 +4,5 @@ pic/
 testing.py
 __pycache__
 example.py
+Procfile
+runtime.txt
