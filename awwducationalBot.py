@@ -47,7 +47,7 @@ subreddit = reddit.subreddit("Awwducational")
 #get top 5 hottest posts in nba subreddit; 2(looks like 1 now) posts are sticked
 #counter
 counter = 1
-for submission in subreddit.hot(limit=2):
+for submission in subreddit.hot(limit=5):
     if not(submission.stickied):
         #store the submission.title in a variable
         title = str(submission.title)
@@ -91,7 +91,7 @@ for submission in subreddit.hot(limit=2):
                 #time.sleep(60)
 
                 #should adjust to 24 hrs of sleep
-                time.sleep(10)
+                time.sleep(60)
                 flag = False
 
             print("Completed!  " + user.name)
