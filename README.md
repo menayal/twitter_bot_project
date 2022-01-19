@@ -19,11 +19,12 @@ I created this bot to learn more about how API's work together.
 - Responds to the tweet with a source of where it came from.
 
 
-## ![Dependencies](requirements.txt)
+## Dependencies
 * Tweepy
 * Praw
 * OS
 * Requests
+* ![List of dependenices and version numbers](requirements.txt)
 
 
 
