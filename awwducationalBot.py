@@ -1,10 +1,3 @@
-#6/10/21: combine both the reddit and twitter functionality into one program
-#6/11/21 : adjusted char count for titles
-#6/20/21: got the script to work successfully with media.
-#To do:
-# host with heroku or online
-# post a tweet every x amount; maybe 24hrs
-
 #twitter side libraries
 import os
 from dotenv import load_dotenv #need this to access env variables
@@ -38,14 +31,13 @@ twitter_API = tweepy.API(auth) #use this to call twitter api
 user = twitter_API.me()
 
 
-#Seeing if i am auhenticated correctly; works correctly
+#Seeing if i am auhenticated correctly
 print("User: " + str(reddit.user.me()) + " is authenticated\n")
 print("Processesing: \n")
 
 #get a subreddit post
 subreddit = reddit.subreddit("Awwducational")
-#get top 5 hottest posts in nba subreddit; 2(looks like 1 now) posts are sticked
-#counter
+#get top 5 hottest posts in subreddit; 2(looks like 1 now) posts are stickied
 counter = 1
 for submission in subreddit.hot(limit=5):
     if not(submission.stickied):
