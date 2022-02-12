@@ -1,16 +1,3 @@
-#4/18/21: imported praw, Adding authentication; got title, source, content, submission points to.
-#4/29/21: imported os, dotenv for env variables. Example in testing.py
-#5/2/21: imported urllib.request//not working
-#6/4/21: used requests to download the pictures to the pic dir successfully
-#6/10/21: created functions to be reference in the Awwducational bot.
-#6/11/21: deleted fucntions; updated script adjust title <=280chars
-#TO DO:
-# Combine the reddit portion and twitter portion to post on twitter.
-# automate on a remote server.
-# Possible problems may be deleting the files after downloading and posting
-# to twitter.
-#6/10/21 potential problem, some media is not downloading.
-
 import os
 from dotenv import load_dotenv #for use of env variables
 import praw
@@ -33,7 +20,7 @@ print("Processesing: \n")
 
 #get a subreddit post
 subreddit = reddit.subreddit("Awwducational")
-#get top 5 hottest posts in nba subreddit; 2(looks like 1 now) posts are sticked
+#get top 5 hottest posts in subreddit; 2(looks like 1 now) posts are sticked
 #counter
 counter = 1
 for submission in subreddit.hot(limit=5):
@@ -56,7 +43,6 @@ for submission in subreddit.hot(limit=5):
         #gets the contents of Submission
         print("Content: \n" + submission.selftext)
         #gets image
-        #not sure if i even need this
         if (submission.url.endswith(('.jpg', '.png', '.gif', '.jpeg'))):
             print("Picture url: " + submission.url)
             #img url
